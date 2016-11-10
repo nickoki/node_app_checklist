@@ -8,6 +8,7 @@ A tl;dr checklist to guide your workflow for your new Node App
 
  - `npm install --save express`
   - Install Express node module
+  - _Note:_ `--save` adds module to `package.json`
 
 ### Define App
 
@@ -27,6 +28,40 @@ A tl;dr checklist to guide your workflow for your new Node App
  - Start server with `nodemon` which automates server reload on file change (server start traditionally done with `node index.js`)
   - _to install nodemon_ enter `npm install nodemon` (install globally with `npm install -g nodemon`)
 
+### MongoDB & Mongoose ODM
+
+ - `npm install --save mongoose`
+
+ - Setting up Schema and connection to the db
+
+  ```javascript
+  var mongoose = require("mongoose")
+
+  mongoose.Promise = global.Promise
+
+  var ExampleSchema = mongoose.Schema({
+    name: String,
+  })
+
+  mongoose.model("Example", ExampleSchema)
+
+  mongoose.connect("mongodb://localhost/<app_name>")
+
+  module.exports = mongoose
+  ```
+
+ - Handy MongoDB CLI Commands:
+  - _Note:_ be sure `mongod` is running in a separate terminal window
+  - `mongo` opens interface
+  - `show dbs`
+  - `use <name_of_db>`
+  - `show collections`
+  - `<name_of_db>.<name_of_collection>.find({})` to show all
+
 -----
 
-### Helpful Node Snippets
+### Other Helpful Modules
+
+- `body-parser`
+
+- `hbs` (handlebars)
