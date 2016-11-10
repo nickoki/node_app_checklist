@@ -81,6 +81,8 @@ A tl;dr checklist to guide your workflow for your new Node App
   - `> show collections`
 
   - `> db.<name_of_collection>.find({})` to show all
+  
+  - [More commands...](https://docs.mongodb.com/v3.2/reference/mongo-shell/)
 
 
 
