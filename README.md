@@ -44,13 +44,13 @@ A tl;dr checklist to guide your workflow for your new Node App
 
 ## MongoDB & Mongoose ODM
 
-- Install Mongoose
+- Install **Mongoose**
 
   ```
   $ npm install --save mongoose
   ```
 
-- In `db/connection.js`, set up Schema and connection to the db:
+- In `db/connection.js`, set up **Schema** and connection to the db:
 
   ```javascript
   var mongoose = require("mongoose")
@@ -94,14 +94,14 @@ A tl;dr checklist to guide your workflow for your new Node App
   })
   ```
 
-- Set up Express to accept AJAX requests:
+- Set up Express to accept **AJAX requests** (from Angular):
 
   ```javascript
   app.use(parser.json({extended: true}))
   ```
 
 
-- CDN Angular from `layout.html` & add link to your Angular app
+- CDN **Angular** from `layout.html` & add link to your Angular app
 
   ```html
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
@@ -123,9 +123,18 @@ A tl;dr checklist to guide your workflow for your new Node App
   function indexController(ExampleFactory) {
     ExampleFactory.query()
                   .$promise
-                  .then(example => this.example = example)
+                  .then(examples => this.examples = examples)
   }
 
+  function showController($stateParams, ExampleFactory) {
+    this.example = Example.get({name: $stateParams.name})
+    this.update = function() {
+      this.example.$update({name: $stateParams.name})
+    }
+  }
+  ```
+
+  ```javascript
   // index.js (Express)
   app.post("/api/examples/:name", function(req, res) {
     Example.findOneAndUpdate({name: req.params.name}, req.body, {new: true}).then(example => {
