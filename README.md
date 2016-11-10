@@ -94,24 +94,44 @@ A tl;dr checklist to guide your workflow for your new Node App
   })
   ```
 
-- CDN Angular from `layout.html`
+- Set up Express to accept AJAX requests:
+
+  ```javascript
+  app.use(parser.json({extended: true}))
+  ```
+
+
+- CDN Angular from `layout.html` & add link to your Angular app
 
   ```html
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.2/angular-resource.min.js"></script>
-  ```
-
-- Also add link to your Angular app
-
-  ```html
   <script src="/assets/js/app.js"></script>
   ```
 
-- Set up Express to accept AJAX requests:
+- Example Angular Factory and Controller + Express API Route:
 
   ```javascript
-  app.use(parser.json({extended: true}))
+  // app.js (Angular)
+  function ExampleFactoryFunction($resource) {
+    return $resource("/api/example/:name", {}, {
+      update: { method: "put" }
+    })
+  }
+
+  function indexController(ExampleFactory) {
+    ExampleFactory.query()
+                  .$promise
+                  .then(example => this.example = example)
+  }
+
+  // index.js (Express)
+  app.post("/api/examples/:name", function(req, res) {
+    Example.findOneAndUpdate({name: req.params.name}, req.body, {new: true}).then(example => {
+      res.json(example)
+    })
+  })
   ```
 
 - Example: [WhenPresident](https://github.com/ga-wdi-exercises/whenpresident/tree/angular-solution)
