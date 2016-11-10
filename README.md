@@ -80,7 +80,7 @@ A tl;dr checklist to guide your workflow for your new Node App
 
   - `> show collections`
 
-  - `> <name_of_db>.<name_of_collection>.find({})` to show all
+  - `> db.<name_of_collection>.find({})` to show all
 
 
 
